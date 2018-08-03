@@ -3,6 +3,7 @@ data
 
 # Editors
 .vscode
+*.sw?
 
 # Node
 node_modules
