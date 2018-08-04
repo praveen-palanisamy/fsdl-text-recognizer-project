@@ -42,7 +42,7 @@ def line_cnn_sliding_window(
     convnet = KerasModel(inputs=convnet.inputs, outputs=convnet.layers[-2].output)
 
     convnet_outputs = TimeDistributed(convnet)(image_patches)
-    # (num_windows, 128)
+    # (num_windows, 64)
 
     # Now we have to get to (output_length, num_classes) shape. One way to do it is to do another sliding window with
     # width = floor(num_windows / output_length)
@@ -50,6 +50,13 @@ def line_cnn_sliding_window(
     # and watch out that width is at least 2 (else we will only be able to predict on the first half of the line)
 
     ##### Your code below (Lab 2)
+    # (mum_windows, 64) --> (output_length , num_classes)
+    num_windows = int((image_width - window_width) / window_stride) + 1
+    width = np.floor(num_windows / output_length)
+    slide = 1
+    filter_size = num_windows - (output_length -1) *  slide
+    slider_output = Conv2D(num_classes, kernel_size=(filter_size, filter_size), activation="relu")(convnet_outputs)
+    softmax_output = KerasModel(inputs=slider_output, outputs=Dense(num_classes, activation="softmax"))
 
     ##### Your code above (Lab 2)
 

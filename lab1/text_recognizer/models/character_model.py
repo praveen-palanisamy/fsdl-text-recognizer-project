@@ -21,9 +21,9 @@ class CharacterModel(Model):
             image = (image / 255).astype(np.float32)
         # NOTE: integer to character mapping dictionary is self.data.mapping[integer]
         ##### Your code below (Lab 1)
-        logits = self.network.predict(np.expand_dims(image,0), batch_size=1).flatten()
-        pred_idx = np.argmax(logits)
-        confidence_of_prediction = logits[pred_idx]
+        class_prob = self.network.predict(np.expand_dims(image,0), batch_size=1).flatten()
+        pred_idx = np.argmax(class_prob)
+        confidence_of_prediction = class_prob[pred_idx]
         predicted_character = self.data.mapping[pred_idx]
 
         ##### Your code above (Lab 1)
