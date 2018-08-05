@@ -19,6 +19,7 @@ def lenet(input_shape: Tuple[int, ...], output_shape: Tuple[int, ...]) -> Model:
     model.add(Dropout(0.2))
     model.add(Conv2D(32, (3,3), activation='relu'))
     model.add(Dropout(0.3))
+    model.add(Conv2D(16, (3,3), activation='relu'))
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dropout(0.2))
